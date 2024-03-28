@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Title</title>
+    </head>
+    <body>
+        <!-- by default, Django is programmed to look for the templates directoryinside the app directory itself.-->
+        <!-- or you go to the settings of your Djang project, which is under mysite, settings.py, and you scroll down to templates, you have this DIRS here And here, you specify templates as a name. So this is relative path to the directory, which contains the templates relative to the project through directory. So I can access templates folder anywhere in my project because it is now specified in the core project -->
+        <h1>Restaurant Menu</h1>
+        <h3>{{ meals }}</h3>
+    </body>
+</html>

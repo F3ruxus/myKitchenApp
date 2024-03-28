@@ -32,8 +32,8 @@ class Item(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.IntegerField(choices=STATUS, default=0)
     # In the next two lines below, whenever the cook creates a new item or updates the item, the timestamp will be recorded. 
-    data_created = models.DateTimeField(auto_now_add=True)
-    data_updated = models.DateTimeField(auto_now=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.meal
