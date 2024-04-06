@@ -6,6 +6,7 @@ from . import views
 # For JHCP hackers, the job application form uses function based views
 
 urlpatterns = [
-    path('', views.MenuList.as_view(), name='home')
+    path('', views.MenuList.as_view(), name='home'),
     # The as_view is required for class based views, but you don't need it for function based views!
+    path('item/', views.MenuItemDetail.as_view(), name="menu_item")
 ]

@@ -1,7 +1,7 @@
 from typing import Any
 from django.views import generic
 # With this we are asking for the data from the database table
-from .models import Item
+from .models import Item, MEAL_TYPE
 
 # This code is to transer data to the HTML frontend from the python and django backend
 # We are using a class based system but you could also use a function based systme as well.
@@ -25,12 +25,17 @@ class MenuList(generic.ListView):
     queryset = Item.objects.order_by("-date_created")
     template_name = "index.html"
 
-    def get_context_data(self):
+    def get_context_data(self, **kwargs):
         # So the context is a dictionary.
         # And then from your HTML templates,
         # you can access the keys of that dictionary as variables.
-        context = {"meals": ["Pizza", "Pasta"],
-                   "ingredients": ["things"]}
+        # context = {"meals": ["Pizza", "Pasta"],
+        #            "ingredients": ["things"]}
+        # But with jinja, we want to start with an empty dictionary
+        # So basically we are getting some actual value, an existing dictionary from the ListView class to get some default values already.
+
+        context = super().get_context_data(**kwargs)
+        context["meals"] = MEAL_TYPE # we get MEAL_TYPE from models.py
         return context
 
 
