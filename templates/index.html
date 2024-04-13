@@ -1,33 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Title</title>
-    </head>
-    <body>
-        <!-- by default, Django is programmed to look for the templates directoryinside the app directory itself.-->
-        <!-- or you go to the settings of your Djang project, which is under mysite, settings.py, and you scroll down to templates, you have this DIRS here And here, you specify templates as a name. So this is relative path to the directory, which contains the templates relative to the project through directory. So I can access templates folder anywhere in my project because it is now specified in the core project -->
-        <h1>Restaurant Menu</h1>
-        <!-- using jinja2 syntax, we're gonna write a loop to make the html look nicer -->
-        <!-- Item_list now comes from the Item class in models.py.
-        So our class is named Item, and when you do item with lowercase letters followed by an underscore, followed by list, this is like a special variable name. -->
-        <!-- For the row status part, that refers to STATUS from models.py -->
-
-            {% for meal in meals %}
-                <h2>{{ meal.1 }}</h2>
-                    {% for row in item_list %}
-                        {% if row.meal_type == meal.0 %}
-                            {% if row.status == 0 %}
-                                <a href="{% url 'menu_item' row.pk %}"><h3><del>{{ row.meal }}</del></h3></a>
-                                <p>{{ row.description }}</p>
-                            {% else %}
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <!-- by default, Django is programmed to look for the templates directoryinside the app directory itself.-->
+    <!-- or you go to the settings of your Djang project, which is under mysite, settings.py, and you scroll down to templates, you have this DIRS here And here, you specify templates as a name. So this is relative path to the directory, which contains the templates relative to the project through directory. So I can access templates folder anywhere in my project because it is now specified in the core project -->
+    <h1>Restaurant Menu</h1>
+    <!-- using jinja2 syntax, we're gonna write a loop to make the html look nicer -->
+    <!-- Item_list now comes from the Item class in models.py.
+    So our class is named Item, and when you do item with lowercase letters followed by an underscore, followed by list, this is like a special variable name. -->
+    <!-- For the row status part, that refers to STATUS from models.py -->
+    <ul class="list-group list-group-flush">
+        {% for meal in meals %}
+            <!-- The class pt-5 defines padding on top of the meals, the meal names-->
+            <h2 class="pt-5">{{ meal.1 }}</h2>
+                {% for row in item_list %}
+                    {% if row.meal_type == meal.0 %}
+                        {% if row.status == 0 %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 pb-0">
+                            <a href="{% url 'menu_item' row.pk %}"><h3><del>{{ row.meal }}</del></h3></a>
+                            <span class="badge bg-primary rounded-pill">{{ row.price }}</span>
+                        </li>
+                        <li class="list-group-item pt-0">    
+                            <p>{{ row.description }}</p>
+                        </li>
+                        {% else %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 pb-0">
                             <a href="{% url 'menu_item' row.pk %}"><h3>{{ row.meal }}</h3></a>
-                                <p>{{ row.description }}</p>
-                            {% endif %}    
+                            <span class="badge bg-primary rounded-pill">{{ row.price }}</span>
+                        </li>
+                        <li class="list-group-item pt-0">    
+                            <p>{{ row.description }}</p>
+                        </li>
                         {% endif %}    
-                    {% endfor %}
-            {% endfor %}
-        <!-- <h3>{{ ingredients }}</h3> -->
-    </body>
-</html>
+                    {% endif %}    
+                {% endfor %}
+        {% endfor %}
+    <!-- <h3>{{ ingredients }}</h3> -->
+    </ul>
+</div>
+{% endblock content %}
